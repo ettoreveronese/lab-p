@@ -1,0 +1,24 @@
+#ifndef MY_VECTOR_H
+#define MY_VECTOR_H
+
+#include <iostream>
+
+class MyVector{
+
+public:
+	MyVector(size_t ms);
+	~MyVector();
+	const double &at(size_t index) const;
+	double &at(size_t index);
+	void push_back(double elem);
+	void pop_back();
+	void reserve(double n);
+
+private:
+	double *ptr;
+size_t size;
+	size_t max_size;
+
+}
+
+#endif
