@@ -1,13 +1,13 @@
 #include "MyVector.h"
 
-MyVector::MyVector(size_t ms){
-	max_size = ms;
+MyVector::MyVector(size_t bs){
+	max_size = bs;
 	ptr = new double[ms];
 }
 
 MyVector::~MyVector(){
 	if(ptr != nullptr){
-		delete ptr;
+		delete[] ptr;
 	}
 }
 
@@ -25,10 +25,26 @@ const double MyVector::at(size_t i) const{
 		return;
 	}
 	return ptr[i]
-
-
 }
 
+void MyVector::push_back(double elem){
+	size++;
+	if (size > buffer_size){
+		buffer_size*=2;
+		double t_ptr* = new double[buffer_size];
+		std::copy(ptr, ptr+size , t_ptr);
+	}
+	ptr[size]=elem;
+}
+
+void MyVector::pop_back(){
+	size--;
+	max_size--;
+}
+
+void MyVector::reserve(size_t n){
+
+}
 
 
 // paolo

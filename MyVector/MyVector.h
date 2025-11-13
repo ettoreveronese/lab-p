@@ -12,12 +12,12 @@ public:
 	double &at(size_t index);
 	void push_back(double elem);
 	void pop_back();
-	void reserve(double n);
+	void reserve(size_t n);
 
 private:
 	double *ptr;
-size_t size;
-	size_t max_size;
+	size_t size;
+	size_t buffer_size;
 
 }
 
