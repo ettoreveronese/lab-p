@@ -1,8 +1,9 @@
 #include "MyVector.h"
 
-MyVector::MyVector(size_t bs){
-	max_size = bs;
-	ptr = new double[ms];
+MyVector::MyVector(size_t s){
+    size = s;
+	buffer_size = s;
+	ptr = new double[size];
 }
 
 MyVector::~MyVector(){
@@ -12,40 +13,52 @@ MyVector::~MyVector(){
 }
 
 double MyVector::at(size_t i){
-	if (i >= max_size){
-		throw std::out_of_range("invalid argument\n");
-		return;
+	if (i >= size){
+		throw std::out_of_range("invalid argument");
 	}
 	return ptr[i];
 }
 
 const double MyVector::at(size_t i) const{
 	if (i >= size){
-		throw std::out_of_range("invalid argument\n");
+		throw std::out_of_range("invalid argument");
 		return;
 	}
-	return ptr[i]
+	return ptr[i];
 }
 
 void MyVector::push_back(double elem){
-	size++;
-	if (size > buffer_size){
-		buffer_size*=2;
-		double t_ptr* = new double[buffer_size];
-		std::copy(ptr, ptr+size , t_ptr);
-	}
-	ptr[size]=elem;
+	size_t old_size = size;
+    size += 1;
+	
+    if (size > buffer_size){
+		buffer_size = (buffer_size == 0) ?  1 : buffer_size*2;
+		
+        double *new_ptr = new double[buffer_size];
+		std::copy(ptr, ptr+old_size , new_ptr);
+	    
+        delete[] ptr;
+        ptr = new_ptr;
+    }
+
+	ptr[size-1]=elem;
 }
 
 void MyVector::pop_back(){
-	size--;
-	max_size--;
+	if (size <= 0){
+        throw std::out_of_range("pop_back on empty vector");
+    }
+    size -= 1;
 }
 
 void MyVector::reserve(size_t n){
-
+    if (n > buffer_size){
+        buffer_size = n;
+		
+        double *new_ptr = new double[buffer_size];
+		std::copy(ptr, ptr+size-1, new_ptr);
+	    
+        delete[] ptr;
+        ptr = new_ptr;
+    } 
 }
-
-
-// paolo
-
