@@ -6,7 +6,9 @@
 class MyVector{
 
 public:
-	MyVector(size_t ms);
+	MyVector(size_t s);
+    MyVector(initializer_list<double> lst){};
+    MyVector(const MyVector& v);
 	~MyVector();
 	
     const double &at(size_t index) const;
