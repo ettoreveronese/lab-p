@@ -1,3 +1,5 @@
+// da commentare
+// rivedere nome variabili
 #ifndef MY_VECTOR_H
 #define MY_VECTOR_H
 
@@ -9,6 +11,9 @@ public:
 	MyVector(size_t s);
     MyVector(initializer_list<double> lst){};
     MyVector(const MyVector& v);
+    MyVector(MyVector&& v) noexcept;
+    MyVector& operator=(const MyVector& v);
+    MyVector& operator=(MyVector&& v) noexcept;
 	~MyVector();
 	
     const double &at(size_t index) const;
