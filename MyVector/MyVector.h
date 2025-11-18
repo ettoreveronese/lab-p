@@ -4,12 +4,16 @@
 #define MY_VECTOR_H
 
 #include <iostream>
+#include <initializer_list>  // Add this include
+#include <cstddef>          // For size_t
+
 
 class MyVector{
 
 public:
+    MyVector();
 	MyVector(size_t s);
-    MyVector(initializer_list<double> lst){};
+    MyVector(std::initializer_list<double> lst);
     MyVector(const MyVector& v);
     MyVector(MyVector&& v) noexcept;
     MyVector& operator=(const MyVector& v);
@@ -28,6 +32,6 @@ private:
 	double *ptr;
 	size_t size;
 	size_t buffer_size;
-}
+};
 
 #endif

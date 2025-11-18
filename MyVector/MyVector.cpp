@@ -1,13 +1,14 @@
 #include "MyVector.h"
 
+MyVector::MyVector() : size(0), buffer_size(0), ptr(nullptr) {}
 MyVector::MyVector(size_t s) : size(s ? s : 0), ptr(s ? new double[size] : nullptr), buffer_size(s) {} // s = nullptr ????????
 
-MyVector::MyVector(initializer_list<double> lst) : size(lst.size()), buffer_size(size), ptr(size ? new double[size] : nullptr) {
+MyVector::MyVector(std::initializer_list<double> lst) : size(lst.size()), buffer_size(size), ptr(size ? new double[size] : nullptr) {
     std::copy(lst.begin(), lst.end(), ptr); 
 }
 
 MyVector::MyVector(const MyVector& v) : size(v.size), buffer_size(v.buffer_size), ptr(size ? new double[size] : nullptr){
-    std::copy(v, v.ptr+size, ptr);
+    std::copy(v.ptr, v.ptr+size, ptr);
 }
 
 MyVector::MyVector(MyVector&& v) noexcept : size(v.size), buffer_size(v.buffer_size), ptr(v.ptr){
@@ -38,7 +39,7 @@ MyVector& MyVector::operator=(MyVector&& v) noexcept {
     return *this;
 }
 
-MyVector& MyVector::operator=(MyVector&& v){
+MyVector& MyVector::operator=(const MyVector& v){
     if (this == &v){
         return *this;
     }
@@ -50,14 +51,9 @@ MyVector& MyVector::operator=(MyVector&& v){
     std::copy(v.ptr, v.ptr+v.size, new_ptr);
     
     delete[] ptr;
-    delete[v]
     ptr = new_ptr;
 
     return *this;    
-}
-
-MYVector::MyVector& operator=(MyVector&& v){
-
 }
 
 double& MyVector::at(size_t i){
