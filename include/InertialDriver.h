@@ -1,7 +1,7 @@
 #ifndef INDERTIAL_DRIVER_H
 #define INERTIAL_DRIVER_H
 
-#include "MyVector.h"
+#include "../include/MyVector.h"
 #include <iostream>
 
 class InertialDriver{
@@ -16,7 +16,17 @@ public:
 	
 private:
 	MyVector data;
-	
+    const std::size_t 
+    const std::size_t BUFFER_DIM 	
+
+    struct Reading {
+        double yaw_v;
+        double yaw_a;
+        double pitch_v;
+        double pitch_a;
+        double roll_v;
+        double roll_a;
+    };
 };
 
 #endif
