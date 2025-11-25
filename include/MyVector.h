@@ -14,7 +14,7 @@ class MyVector{
 
 public:
     MyVector() : size(0), buffer_size(0), ptr(nullptr) {}
-    MyVector(size_t s) : size(s ? s : 0), ptr(s ? new T[size] : nullptr), buffer_size(s) {} // s = nullptr ????????
+    MyVector(size_t s) : size(s ? s : 0), ptr(s ? new T[size] : nullptr), buffer_size(s) {}
     
     MyVector(std::initializer_list<T> lst) : size(lst.size()), buffer_size(size), ptr(size ? new T[size] : nullptr) {
         std::copy(lst.begin(), lst.end(), ptr); 
