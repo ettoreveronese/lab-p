@@ -3,8 +3,8 @@
 
 InertialDriver::InertialDriver() : buffer(BUFFER_DIM){}
 
-void InertialDriver::push_back(const Measurement& readings){ // todo
-    
+void InertialDriver::push_back(const Measurement& readings){
+     
 }
 
 MyVector InertialDriver::pop_front(){
@@ -20,7 +20,5 @@ void InertialDriver::clear_buffer(){
 }
 
 std::ostream& InertialDriver::operator<<(std::ostream& os, const InertialDriver& data){
-    
+      
 }
-
-

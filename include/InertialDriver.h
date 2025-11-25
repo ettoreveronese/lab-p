@@ -4,18 +4,18 @@
 #include "../include/MyVector.h"
 #include <iostream>
 
-struct Reading {
+struct Reading { // lettura sensore 
     double yaw_v, yaw_a, pitch_v, pitch_a, roll_v, roll_a;
 };
     
-const std::size_t BUFFER_DIM = 670;
-const std::size_t NUM_SENSORS = 17;
-typedef Reading Measurement[NUM_SENSORS];
+const std::size_t NUM_SENSORS = 17;     // numero di sensori, equivale al numero di letture che costituisce una misura
+typedef Reading Measurement[NUM_SENSORS];   // un array di 17 strutture Reading
 
-class InertialDriver{
+class InertialDriver{ 
 
-private: 
-    MyVector<Reading> buffer;
+private:
+    const std::size_t BUFFER_DIM = 670;
+    MyVector<Measurement> buffer;
 
     std::size_t front;
     std::size_t back;
