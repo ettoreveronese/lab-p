@@ -5,28 +5,26 @@
 #include <iostream>
 
 class InertialDriver{
-	
-public:
-	InertialDriver();
-	void push_back(MyVector v);
-	MyVector pop_front();
-	void clear_buffer();
-	double get_reading(std::uint8_t index);
-	std::ostream& operator<<(std::ostream& os, const InertialDriver& data);
-	
+
 private:
-	MyVector data;
-    const std::size_t 
-    const std::size_t BUFFER_DIM 	
+    static constexpr std::size_t BUFFER_DIM = 67;
+    MyVector<Reading> buffer;
 
     struct Reading {
-        double yaw_v;
-        double yaw_a;
-        double pitch_v;
-        double pitch_a;
-        double roll_v;
-        double roll_a;
+        double yaw_v, yaw_a;
+        double pitch_v, pitch_a;
+        double roll_v, roll_a;
     };
+
+
+public:
+	InertialDriver();
+	void push_back(const Reading measure[BUFFER_DIM]);
+	MyVector pop_front();
+	Reading get_reading(std::size_t i);
+	void clear_buffer();
+	std::ostream& operator<<(std::ostream& os, const InertialDriver& data);
+
 };
 
 #endif

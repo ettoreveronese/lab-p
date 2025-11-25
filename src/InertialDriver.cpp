@@ -1,6 +1,4 @@
 #include "InertialDriver.h"
 #include <iostream>
 
-InertialDriver::InertialDriver(){
-    
-}
+InertialDriver::InertialDriver() : buffer(BUFFER_DIM){}
