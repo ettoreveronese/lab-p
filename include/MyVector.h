@@ -84,7 +84,7 @@ public:
     void push_back(const T& elem){
 	    size_t old_size = size;
 	
-        if (size > buffer_size){
+        if (size == buffer_size){
 	    	buffer_size = (buffer_size == 0) ?  1 : buffer_size*2;
 		
             T *new_ptr = new T[buffer_size];
