@@ -14,7 +14,7 @@ typedef Reading Measurement[NUM_SENSORS];   // un array di 17 strutture Reading,
 class InertialDriver{ 
 
 private:
-    static const std::size_t BUFFER_DIM = 670;
+    static const std::size_t BUFFER_DIM = 67;
     MyVector<Measurement> buffer;
 
     std::size_t front;
@@ -27,7 +27,8 @@ public:
 	void pop_front(Measurement& output_measurement);
 	Reading get_reading(std::size_t i);
 	void clear_buffer();
-	std::ostream& operator<<(std::ostream& os, const InertialDriver& data);
+	
+    friend std::ostream& operator<<(std::ostream& os, const InertialDriver& data);
 
 };
 
