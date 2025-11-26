@@ -36,9 +36,6 @@ Reading InertialDriver::get_reading(std::size_t i) {
         throw std::out_of_range("Invalid sensor index");
     }
 
-    // Indice dell'ultima misura inserita
-    std::size_t last_measure_idx = (back + BUFFER_DIM - 1) % BUFFER_DIM;
-
     Measurement& last_measure = buffer.at(back);    // l'ultima misura
     return last_measure[i];                         // la lettura richiesta
 }
