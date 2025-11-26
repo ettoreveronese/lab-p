@@ -1,27 +1,33 @@
 #include "InertialDriver.h"
 #include <iostream>
 
-InertialDriver::InertialDriver() : buffer(BUFFER_DIM), front(0), back(0), count(0){}
+InertialDriver::InertialDriver() : buffer(BUFFER_DIM), front(0), back(BUFFER_DIM-1), count(0){}
 
 void InertialDriver::push_back(const Measurement& readings){
-    if (count = BUFFER_DIM){
+    if (count == BUFFER_DIM){
         buffer.at(front) = readings;
         back = front;
         front = (front + 1) % BUFFER_DIM;
     } else {
-        buffer.at(back) == readings;
         back = (back + 1) % BUFFER_DIM;
+        buffer.at(back) = readings;
         count++;
     }
 }
 
-void InertialDriver::pop_front(){
-    
+void InertialDriver::pop_front(Measurement& measurement_out){
+    if (count != 0){
+        std::copy(buffer.at(front), buffer.at(front)+NUM_SENSORS, std::begin(measurement_out));
+        front = (front+1) % BUFFER_DIM;
+        count--;
+    } else {
+        throw std::runtime_error("buffer is empty");
+    }
 }
 
 Reading InertialDriver::get_reading(std::size_t i) {
     if (count == 0) {
-        throw std::out_of_range("Buffer is empty");
+        throw std::runtime_error("buffer is empty");
     }
     if (i >= NUM_SENSORS) {
         throw std::out_of_range("Invalid sensor index");
@@ -30,14 +36,13 @@ Reading InertialDriver::get_reading(std::size_t i) {
     // Indice dell'ultima misura inserita
     std::size_t last_measure_idx = (back + BUFFER_DIM - 1) % BUFFER_DIM;
 
-    // Uso di at() per sicurezza
-    Measurement& last_measure = buffer.at(last_measure_idx);  // l'ultima misura
-    return last_measure[i];                                   // la lettura richiesta
+    Measurement& last_measure = buffer.at(back);    // l'ultima misura
+    return last_measure[i];                         // la lettura richiesta
 }
 
 void InertialDriver::clear_buffer(){
     front = 0;
-    back = 0;
+    back = BUFFER_DIM-1;
     count = 0;
 }
 

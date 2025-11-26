@@ -17,14 +17,14 @@ private:
     static const std::size_t BUFFER_DIM = 67;
     MyVector<Measurement> buffer;
 
-    std::size_t front;
-    std::size_t back;
-    std::size_t count;
+    std::size_t front;  // misura più vecchia
+    std::size_t back;   // misura più recente
+    std::size_t count;  // numero di misure presenti nel buffer
 
 public:
 	InertialDriver();
 	void push_back(const Measurement& new_measurement);
-	void pop_front(Measurement& output_measurement);
+	void pop_front(Measurement& measurement_out);
 	Reading get_reading(std::size_t i);
 	void clear_buffer();
 	
