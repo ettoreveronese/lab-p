@@ -1,4 +1,4 @@
-#include "InertialDriver.h"
+#include "../include/InertialDriver.h"
 #include <iostream>
 
 InertialDriver::InertialDriver() : buffer(BUFFER_DIM), front(0), back(BUFFER_DIM-1), count(0){}
@@ -54,7 +54,7 @@ std::ostream& operator<<(std::ostream& os, const InertialDriver& data) {
 
     os << "Buffer Status (" << data.count << " items):\n";
     
-    for (std::size_t i = 0; i < data.count; ++i) 
+    for (std::size_t i = 0; i < data.count; ++i){ 
         std::size_t physical_idx = (data.front + i) % data.BUFFER_DIM;
         
         os << "Pos " << i << " (Ind " << physical_idx << "): ";
