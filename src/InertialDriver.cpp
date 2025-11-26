@@ -1,11 +1,17 @@
 #include "InertialDriver.h"
 #include <iostream>
 
-InertialDriver::InertialDriver() : buffer(BUFFER_DIM){}
+InertialDriver::InertialDriver() : buffer(BUFFER_DIM), front(0), back(0), count(0){}
 
 void InertialDriver::push_back(const Measurement& readings){
-    if(count >= BUFFER_DIM){
-        buffer.at()
+    if (count = BUFFER_DIM){
+        buffer.at(front) = readings;
+        back = front;
+        front = (front + 1) % BUFFER_DIM;
+    } else {
+        buffer.at(back) == readings;
+        back = (back + 1) % BUFFER_DIM;
+        count++;
     }
 }
 
