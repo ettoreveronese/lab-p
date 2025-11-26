@@ -1,5 +1,3 @@
-// da commentare
-// rivedere nome variabili
 #ifndef MY_VECTOR_H
 #define MY_VECTOR_H
 
