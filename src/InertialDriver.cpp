@@ -49,6 +49,22 @@ void InertialDriver::clear_buffer(){
     count = 0;
 }
 
-std::ostream& InertialDriver::operator<<(std::ostream& os, const InertialDriver& data){
-      
+std::ostream& operator<<(std::ostream& os, const InertialDriver& data) {
+    if (data.count == 0) {
+        os << "Buffer Empty";
+        return os;
+    }
+
+    os << "Buffer Status (" << data.count << " items):\n";
+    
+    for (std::size_t i = 0; i < data.count; ++i) 
+        std::size_t physical_idx = (data.front + i) % data.BUFFER_DIM;
+        
+        os << "Pos " << i << " (Ind " << physical_idx << "): ";
+    
+        const Measurement& m = data.buffer.at(physical_idx);
+        
+        os << "[S0: y_v=" << m[0].yaw_v << ", y_a=" << m[0].yaw_a << "...]\n";
+    }
+    return os;
 }
