@@ -4,21 +4,24 @@
 InertialDriver::InertialDriver() : buffer(BUFFER_DIM), front(0), back(BUFFER_DIM-1), count(0){}
 
 void InertialDriver::push_back(const Measurement& readings){
-    if (count == BUFFER_DIM){
-        buffer.at(front) = readings;
+    if (count == BUFFER_DIM){   // push_back quando il buffer è pieno
+        std::copy(readings, readings+NUM_SENSORS, buffer.at(front));
         back = front;
         front = (front + 1) % BUFFER_DIM;
-    } else {
+    } else {    // push_back quando il buffer non è pieno
         back = (back + 1) % BUFFER_DIM;
-        buffer.at(back) = readings;
+        std::copy(readings, readings+NUM_SENSORS, buffer.at(back));
         count++;
     }
 }
 
 void InertialDriver::pop_front(Measurement& measurement_out){
     if (count != 0){
-        std::copy(buffer.at(front), buffer.at(front)+NUM_SENSORS, std::begin(measurement_out));
-        front = (front+1) % BUFFER_DIM;
+        // copia della misura da rimuovere su measurement_out
+        const Measurement& m = buffer.at(front);    // misura da rimuovere e restituire
+        std::copy(m, m+NUM_SENSORS, measurement_out);
+        // aggiornamento parametri
+        front = (front+1) % BUFFER_DIM; 
         count--;
     } else {
         throw std::runtime_error("buffer is empty");
